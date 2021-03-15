@@ -126,7 +126,37 @@ function htmlPage() {
     
     console.log('start');
 
-    
+
+}
+
+function addHtml(team) {
+    return new Promise (function(resolve, reject) {
+        const name = member.getName();
+        const role = member.getRole();
+        const id = member.getId();
+        const email = member.getEmail();
+        let data = '';
+
+        if (role=== 'Engineer') {
+            const gitHub = member.getGitHub();
+            data = `
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                <div class="card h-100">
+                <div class="card-body">
+                <h5 class="card-header">Engineer<br /><br />${name}</h5>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: ${id}</li>
+                <li class="list-group-item">Email Address: ${email}</li>
+                <li class="list-group-item">GitHub: ${gitHub}</li>
+            </ul>
+            </div>
+            </div>
+            </div>
+            `;
+        } else if (role ==='Intern')
+            
+    })
 }
 
 
