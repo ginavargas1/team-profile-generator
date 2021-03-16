@@ -12,8 +12,8 @@ const employees = [];
 
 function myTeam() {
     teamAssemble();
-    // htmlPage();
-}
+    htmlPage();
+};
 
 // employee questions 
 function teamAssemble() {
@@ -85,29 +85,153 @@ function teamAssemble() {
                         teamMembers = new Manager(name, id, email ,roleInfo);
                         employees.push(teamMembers)
                     };
-
-                    if (data.addMembers == "Yes") {
-                        teamAssemble()
-
-                    }// if they say no then html is ready
-                    //html - employees loop 
-                    // each role will need to be defined
-                    // info will have to populate in html (js append OR FS writefile)
+                    
+                    // if they say no then html is ready
+                    //html - employees generate
+                    employees.push(teamMembers);
+                    addHtml(teamMembers)
+                    .then(function(){
+                        if(addMembers === "Yes"){
+                            teamAssemble();
+                        }else {
+                            completeHtml();
+                        }
+                    });
+                    
+                    
 
 
                     console.log(teamMembers);
                 });
 
         });
+    
 
 }
 
-// // html page 
-// function htmlPage() {
-//     const html = 
+// html page 
+// each role will need to be defined
+// info will have to populate in html (js append OR FS writefile)
+function htmlPage() {
+    const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <title>Team Profile Generator</title>
+    </head>
+    <body>
+    <div class="jumbotron text-center">
+        <div class="container">
+          <h1 class="display-4">My Team</h1>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+    `;
+    
+    fs.writeFile('index.html', html, function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    
+    console.log('start');
+}
 
+function addHtml(team) {
+    return new Promise (function(resolve, reject) {
+        const name = team.getName();
+        const role = team.getRole();
+        const id = team.getId();
+        const email = team.getEmail();
+        let data = '';
 
+        if (role=== 'Engineer') {
+            const github = team.getGithub();
+            data = `
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                <div class="card h-100">
+                <div class="card-body">
+                <h5 class="card-header">Engineer<br /><br />${name}</h5>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: ${id}</li>
+                <li class="list-group-item">Email Address: ${email}</li>
+                <li class="list-group-item">GitHub: ${github}</li>
+            </ul>
+            </div>
+            </div>
+            </div>
+            `;
+        } else if (role ==='Intern') {
+            const school = team.getSchool();
+            data = `
+            <div class="col">
+                <div class="card h-100">
+                <div class="card-body">
+                <h5 class="card-header">Intern<br /><br />${name}</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: ${id}</li>
+                <li class="list-group-item">Email Address: ${email}</li>
+                <li class="list-group-item">School Name: ${school}</li>
+                </ul>
+            </div>
+            </div>
+            `
+        } else {
+            const officeNumber = team.getOfficeNumber();
+            data = `
+            <div class="col">
+                <div class="card h-100">
+                <div class="card-body">
+                <h5 class="card-header">Manager<br /><br />${name}</h5>
+                <ul class="list-group list-group-flush">
+                <li class="list-group-item">ID: ${id}</li>
+                <li class="list-group-item">Email Address: ${email}</li>
+                <li class="list-group-item">Office Phone: ${officeNumber}</li>
+            </ul>
+            </div>
+            </div>
+            </div>
+            `
+        }
+        console.log('assembling team members')
+        fs.appendFile('index.html', data, function(err){
+            if (err) {
+                return reject (err);
+            };
+            return resolve();
+        });
 
+    });
+}
+
+function completeHtml () {
+    const html = `
+    </div>
+    </div>
+
+    </body>
+    </html>
+    `;
+
+    fs.appendFile('index.html', html, function (err) {
+        if (err) {
+            console.log(err);
+        };
+        console.log('finished');
+    });
+ 
+
+}
 
 //   .catch(error => {
 //     console.log(error)
@@ -117,3 +241,5 @@ function teamAssemble() {
 //   });
 
 myTeam();
+
+
