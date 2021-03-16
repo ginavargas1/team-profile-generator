@@ -160,7 +160,7 @@ function addHtml(team) {
                 <div class="col">
                 <div class="card h-100">
                 <div class="card-body">
-                <h5 class="card-header">Engineer<br /><br />${name}</h5>
+                <h5 class="card-header text-center">Engineer<br /><br />${name}</h5>
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
@@ -176,7 +176,7 @@ function addHtml(team) {
             <div class="col">
                 <div class="card h-100">
                 <div class="card-body">
-                <h5 class="card-header">Intern<br /><br />${name}</h5>
+                <h5 class="card-header text-center">Intern<br /><br />${name}</h5>
                 </div>
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
@@ -192,7 +192,7 @@ function addHtml(team) {
             <div class="col">
                 <div class="card h-100">
                 <div class="card-body">
-                <h5 class="card-header">Manager<br /><br />${name}</h5>
+                <h5 class="card-header text-center">Manager<br /><br />${name}</h5>
                 <ul class="list-group list-group-flush">
                 <li class="list-group-item">ID: ${id}</li>
                 <li class="list-group-item">Email Address: ${email}</li>
